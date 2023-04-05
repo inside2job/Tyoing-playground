@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { ToastContainer } from "react-toastify";
+import Header from "./Components/Header";
+import TypingBox from "./Components/TypingBox";
+import { GlobalStyles } from "./Styles/global";
+import "react-toastify/dist/ReactToastify.css";
+import Footer from "./Components/Footer";
+import { useContext } from "react";
+import { ThemeContext } from "./Context/ThemeContext";
+import { ThemeProvider } from "styled-components";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./Pages/HomePage";
+import UserPage from "./Pages/UserPage";
 
 function App() {
+
+  const {theme} = useContext(ThemeContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <GlobalStyles />
+      <Routes>
+        <Route path='/' element={<HomePage/>}/>
+        <Route path='/user' element={<UserPage/>} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 
